@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Study Abroad Companion – Google Tech</title>
+
+<!-- GOOGLE FONTS -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  font-family:Poppins, sans-serif;
+  background:linear-gradient(135deg,#667eea,#764ba2);
+  color:#333;
+}
+header{
+  text-align:center;
+  color:white;
+  padding:25px;
+}
+nav{
+  background:white;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
+  padding:12px;
+  border-radius:20px;
+  margin:0 20px;
+}
+nav button{
+  padding:10px 18px;
+  border:none;
+  border-radius:20px;
+  background:linear-gradient(135deg,#667eea,#764ba2);
+  color:white;
+  cursor:pointer;
+}
+nav button:hover{transform:scale(1.05);}
+.container{padding:20px;}
+.card{
+  background:white;
+  padding:20px;
+  border-radius:20px;
+  margin-bottom:20px;
+  box-shadow:0 15px 30px rgba(0,0,0,.2);
+}
+.hidden{display:none;}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:15px;
+}
+.box{
+  background:linear-gradient(135deg,#ffecd2,#fcb69f);
+  padding:15px;
+  border-radius:15px;
+  font-weight:600;
+  text-align:center;
+}
+.chatbox{
+  background:#f1f3f8;
+  padding:10px;
+  border-radius:10px;
+  margin-bottom:10px;
+}
+input,select{
+  padding:10px;
+  width:100%;
+  margin:5px 0;
+  border-radius:10px;
+  border:1px solid #ccc;
+}
+.ai{
+  background:linear-gradient(135deg,#89f7fe,#66a6ff);
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>🌍 Study Abroad Companion</h1>
+<p>Google Tech Powered • Student First</p>
+</header>
+
+<nav>
+<button onclick="show('login')">Login</button>
+<button onclick="show('dashboard')">Dashboard</button>
+<button onclick="show('universities')">Universities</button>
+<button onclick="show('tracker')">Tracker</button>
+<button onclick="show('ai')">AI Help</button>
+<button onclick="show('map')">Map</button>
+</nav>
+
+<div class="container">
+
+<!-- LOGIN -->
+<div id="login" class="card">
+<h2>🔐 Student Login</h2>
+<input placeholder="Email">
+<input placeholder="Password" type="password">
+<button onclick="show('dashboard')">Login</button>
+<p>✔ Google Firebase Auth (Demo)</p>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="card hidden">
+<h2>📊 Dashboard</h2>
+<div class="grid">
+<div class="box">🎓 Germany</div>
+<div class="box">📄 Applications: 3</div>
+<div class="box">✉️ Offers: 1</div>
+<div class="box">🛂 Visa: Pending</div>
+</div>
+</div>
+
+<!-- UNIVERSITY SEARCH -->
+<div id="universities" class="card hidden">
+<h2>🏫 University Search</h2>
+<select id="country">
+<option>Germany</option>
+<option>Canada</option>
+<option>USA</option>
+<option>Australia</option>
+</select>
+<button onclick="searchUni()">Search</button>
+<div id="uniResult"></div>
+</div>
+
+<!-- TRACKER -->
+<div id="tracker" class="card hidden">
+<h2>📋 Application Tracker</h2>
+<ul>
+<li>Profile Created ✔</li>
+<li>Universities Shortlisted ✔</li>
+<li>Applications Submitted ✔</li>
+<li>Offer Letter ⏳</li>
+<li>Visa ⏳</li>
+</ul>
+</div>
+
+<!-- AI CHAT -->
+<div id="ai" class="card hidden ai">
+<h2>🤖 AI Study Abroad Assistant</h2>
+<div id="chatArea"></div>
+<input id="userMsg" placeholder="Ask anything...">
+<button onclick="aiReply()">Send</button>
+<p>✔ AI Logic Demo (Instant Reply)</p>
+</div>
+
+<!-- GOOGLE MAP -->
+<div id="map" class="card hidden">
+<h2>🗺️ Universities Location (Google Maps)</h2>
+<iframe 
+src="https://www.google.com/maps?q=universities%20in%20Germany&output=embed"
+width="100%" height="300" style="border-radius:15px;"></iframe>
+<p>✔ Google Maps Technology</p>
+</div>
+
+</div>
+
+<!-- GOOGLE TRANSLATE -->
+<div id="google_translate_element"></div>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script>
+function googleTranslateElementInit(){
+  new google.translate.TranslateElement(
+    {pageLanguage:'en', includedLanguages:'en,ta,hi'},
+    'google_translate_element'
+  );
+}
+
+function show(id){
+  document.querySelectorAll('.card').forEach(c=>c.classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
+}
+
+function searchUni(){
+  let c=document.getElementById('country').value;
+  document.getElementById('uniResult').innerHTML=
+  `<div class='chatbox'>Top universities in ${c}:<br>
+  • Technical University of Munich<br>
+  • RWTH Aachen<br>
+  • Heidelberg University</div>`;
+}
+
+function aiReply(){
+  let msg=document.getElementById('userMsg').value;
+  let area=document.getElementById('chatArea');
+  area.innerHTML+=`<div class='chatbox'><b>You:</b> ${msg}</div>`;
+  area.innerHTML+=`<div class='chatbox'><b>AI:</b> Based on your profile, Germany is best for low tuition & jobs.</div>`;
+  document.getElementById('userMsg').value="";
+}
+</script>
+
+</body>
+</html>
